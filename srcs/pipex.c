@@ -112,6 +112,11 @@ int	main(int argc, char **argv, char **envp)
 		ft_putendl_fd("How to use: ./pipex [input] [cmd1] [cmd2] [output]", 2);
 		return (1);
 	}
+	if (access(argv[4], F_OK) == 0 && access(argv[4], W_OK) == -1)
+    {
+        perror(argv[4]);
+        return (1);
+    }
 	if (pipe(pipefd) == -1)
 		return (1);
 	id = fork();
