@@ -114,7 +114,6 @@ chmod 000 out_test
 $PIPEX in_test "cat" "wc -l" out_test 2>/dev/null
 ret=$?
 
-# O esperado é: pipex DEVE falhar
 if [ $ret != 0 ]; then
     echo -e "${GREEN}OK${NC}"
 else
@@ -139,10 +138,19 @@ run_test "múltiplos espaços" "um   dois   tres" "tr -s ' '" "wc -c"
 run_test "arquivo vazio" "" "cat" "wc -l"
 
 # ==========================================
-# 9. STDIN E STDOUT DIFERENTES (sem arquivos extras)
+# 8.1 PIPE VAZIO — TESTES AVANÇADOS
 # ==========================================
 
-# garantir que nada extra atrapalhe o ls
+run_test "arquivo vazio + cmd1 inexistente" "" "comando_invalido" "wc -l"
+run_test "arquivo vazio + cmd2 inexistente" "" "cat" "comando_invalido"
+run_test "arquivo vazio + sort" "" "sort" "wc -l"
+run_test "arquivo vazio + echo" "" "echo oi" "wc -l"
+run_test "arquivo vazio + múltiplos espaços" "" "tr -s ' '" "wc -c"
+
+# ==========================================
+# 9. STDIN E STDOUT DIFERENTES
+# ==========================================
+
 rm -f out_test expected_test
 
 run_test "ls | wc" "ignored" "ls" "wc -l"
