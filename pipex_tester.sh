@@ -153,7 +153,7 @@ run_test "arquivo vazio + múltiplos espaços" "" "tr -s ' '" "wc -c"
 
 rm -f out_test expected_test
 
-run_test "ls | wc" "ignored" "ls" "wc -l"
+run_test "ls | wc" "ignored" "ls -1 --color=never" "wc -l"
 run_test "rev | wc" "abc" "rev" "wc -c"
 
 # ==========================================
