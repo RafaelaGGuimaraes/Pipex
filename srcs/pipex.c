@@ -6,7 +6,7 @@
 /*   By: rgomes-g <rgomes-g@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/11/19 14:20:38 by rgomes-g          #+#    #+#             */
-/*   Updated: 2025/11/19 14:20:40 by rgomes-g         ###   ########.fr       */
+/*   Updated: 2025/11/22 16:01:01 by rgomes-g         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,9 +36,10 @@ static int	execute_command(char *cmd, char **envp)
 	path = find_path(commands[0], paths);
 	if (!path)
 		return (free_splits(paths_temp, paths, commands, NULL));
-	if (execve(path, commands, NULL) == -1)
+	if (execve(path, commands, envp) == -1)
 		free(path);
-	exit(free_splits(paths_temp, paths, commands, NULL));
+	free_splits(paths_temp, paths, commands, NULL);
+	exit(1);
 	return (1);
 }
 
@@ -118,6 +119,7 @@ int	main(int argc, char **argv, char **envp)
 	int	id;
 	int	id2;
 	int	pipefd[2];
+	int status;
 
 	if (argc != 5)
 	{
@@ -143,6 +145,6 @@ int	main(int argc, char **argv, char **envp)
 		parent_process(argv, envp, pipefd);
 	close_descriptors(pipefd, NULL);
 	waitpid(id, NULL, 0);
-	waitpid(id2, NULL, 0);
-	return (0);
+	waitpid(id2, &status, 0);
+	exit (WEXITSTATUS(status));
 }

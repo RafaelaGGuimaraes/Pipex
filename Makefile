@@ -6,7 +6,7 @@
 #    By: rgomes-g <rgomes-g@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2025/11/19 14:20:23 by rgomes-g          #+#    #+#              #
-#    Updated: 2025/11/19 14:20:25 by rgomes-g         ###   ########.fr        #
+#    Updated: 2025/11/22 15:11:15 by rgomes-g         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME = pipex
 
 # Compilers and flags
 CC = cc
-CFLAGS = -Wall -Werror -Wextra -I$(INCDIR)
+CFLAGS = -Wall -Werror -Wextra -I$(INCDIR) -g
 
 # Directories
 SRCDIR = srcs
